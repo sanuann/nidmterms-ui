@@ -10,7 +10,7 @@
         methods: {
             onInput: function (event) {
                 // eslint-disable-next-line
-                console.log(event.target.value);
+                // console.log(event.target.value);
                 this.$emit('termChange', event.target.value);
 
             }

@@ -23,7 +23,7 @@
         methods: {
             onTermChange(query_string) {
                 // eslint-disable-next-line
-                console.log(18, query_string);
+                // console.log(18, query_string);
                 axios.get(`https://scicrunch.org/api/1/term/elastic/search?term=${query_string}`, {
                     params: {
                         key: API_KEY,

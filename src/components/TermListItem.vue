@@ -1,6 +1,6 @@
 <template>
     <li class="list-group-item">
-        {{ term['_id'] }}
+        {{ term['_source']['label'] }}
     </li>
 </template>
 
