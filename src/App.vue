@@ -30,7 +30,7 @@
                     }
                 }).then(response => {
                     // eslint-disable-next-line
-                    console.log(56, response.data.data.hits.hits);
+                    // console.log(56, response.data.data.hits.hits);
                     this.terms = response.data.data.hits.hits;
                 });
             },
