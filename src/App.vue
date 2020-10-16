@@ -2,7 +2,7 @@
     <div id="app">
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand href="#">
-                <img class="navbar-logo" src="../assests/images/logo.png" alt="Nidm-terms Logo">
+                <img class="navbar-logo" src="../src/assets/images/logo.png" alt="Nidm-terms Logo">
             </b-navbar-brand>
             <span class="community-name">NIDM Terminology</span>
 

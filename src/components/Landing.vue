@@ -4,7 +4,7 @@
             <div>
                 <b-card
                         overlay
-                        img-src="../../assests/images/nidm-terms-background.png"
+                        img-src="../assets/images/nidm-terms-background.png"
                         img-alt="Card Image"
                         text-variant="white"
                         title="TERMINOLOGIES FOR THE NEUROIMAGING COMMUNITY"
