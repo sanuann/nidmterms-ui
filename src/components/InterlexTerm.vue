@@ -2,7 +2,11 @@
     <li class="list-group-item" @click="onTermSelect">
         <!--<a @click="setTerm()">-->
             <span class="align-middle">
-                {{ term }}
+                <b>{{ term['_source'].label }} </b>
+                <br>
+                Description: {{ term['_source'].definition }}
+<!--                <br>-->
+<!--                Url: {{ term['_source'].ontologies[0].url}}-->
             </span>
         <!--</a>-->
     </li>
@@ -10,9 +14,9 @@
 
 <script>
     export default {
-        name: "TermListItem",
+        name: "InterlexTerm",
         props: {
-            term: String
+            term: Object
         },
         methods: {
             onTermSelect() {
