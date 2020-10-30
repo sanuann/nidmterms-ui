@@ -1,3 +1,21 @@
+<!--<template>-->
+<!--    <div>-->
+<!--        <ul class="list-group">-->
+<!--            &lt;!&ndash; key property is used whenever list is updated &ndash;&gt;-->
+<!--            <TermListItem-->
+<!--                    v-for="term in terms1"-->
+<!--                    :term="term"-->
+<!--                    :key="term"-->
+<!--                    @termSelect="onTermSelect"-->
+<!--            >-->
+<!--            </TermListItem>-->
+<!--        </ul>-->
+<!--        <TermDetail :results="results">-->
+
+<!--        </TermDetail>-->
+<!--    </div>-->
+<!--</template>-->
+
 <template>
     <div>
         <ul class="list-group">
@@ -6,35 +24,46 @@
                     v-for="term in terms1"
                     :term="term"
                     :key="term"
+                    :completed="completed"
                     @termSelect="onTermSelect"
             >
             </TermListItem>
-        </ul>
-        <TermDetail :results="results">
 
-        </TermDetail>
+<!--            <li class="list-group-item" v-for="term in terms1" :key="term">-->
+<!--                <a @click="onTermSelect">-->
+<!--                    <span class="align-middle">-->
+<!--                     {{term}}-->
+<!--                   </span>-->
+<!--                </a>-->
+<!--            </li>-->
+        </ul>
     </div>
 </template>
 
 <script>
     import TermListItem from './TermListItem';
     import axios from "axios";
-    import TermDetail from "./TermDetail";
     const API_KEY = 'CfufpoSNVXujv7h14HFHI4dL9p36mxCJ';
 
     export default {
         name: "SourceVariableList",
         props: {
-            terms1: Array
+            terms1: Array,
+            completed: Object,
         },
         data() {
           return {
-              results: []
+              results: [],
+              itemCompleted: false
           }
         },
         components: {
-            TermDetail,
             TermListItem
+        },
+        watch: {
+            completed: {
+                deep: true
+            },
         },
         methods: {
             onTermSelect(term) {

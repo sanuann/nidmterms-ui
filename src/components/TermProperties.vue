@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body scroll">
                 <vue-form-generator :key="selectedTerm" :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
                 <b-button @click="onSave">Save</b-button>
             </div>
@@ -10,26 +10,13 @@
 </template>
 
 <style scoped>
-    html {
-        font-family: Tahoma;
-        font-size: 14px;
+    .scroll {
+        /*margin:4px;*/
+        /*padding:4px;*/
+        height: 899px;
+        overflow-y: auto;
     }
 
-    body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #333;
-    }
-
-    pre {
-        overflow: auto;
-    }
-    pre .string { color: #885800; }
-    pre .number { color: blue; }
-    pre .boolean { color: magenta; }
-    pre .null { color: red; }
-    pre .key { color: green; }
 
     h1 {
         text-align: center;
@@ -46,27 +33,19 @@
     .panel {
         margin-bottom: 20px;
         background-color: #fff;
-        border: 1px solid transparent;
+        border: 1px solid #ddd;
         border-radius: 4px;
         -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
         box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-        border-color: #ddd;
-    }
-
-    .panel-heading {
-        color: #333;
-        background-color: #f5f5f5;
-        border-color: #ddd;
-
-        padding: 10px 15px;
-        border-bottom: 1px solid transparent;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        /*border-color: #ddd;*/
     }
 
     .panel-body {
         padding: 15px;
+        overflow-y: scroll;
     }
+
+
 
     .field-checklist .wrapper {
         width: 100%;
@@ -84,11 +63,13 @@
 
 <script>
     import VueFormGenerator from 'vue-form-generator';
+    import 'vue-form-generator/dist/vfg.css';
     export default {
         name: "TermProperties",
         props: {
             selectedTerm: String,
-            init: Object
+            init: Object,
+            searchResults: Array
         },
         components: {
             "vue-form-generator": VueFormGenerator.component
@@ -195,14 +176,30 @@
                         disabled: false,
                         validator: VueFormGenerator.validators.number
                     }, {
-                        type: "input",
-                        inputType: "text",
+                        type: "checklist",
                         label: "isAbout",
                         model: "isAbout",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
                         required: false,
+                        multiSelect: true,
+                        featured: true,
+                        default: "No concept needed for this variable",
+                        values: function() {
+                            // eslint-disable-next-line
+                            console.log(187, this.searchResults);
+                            return [
+                                "HTML5",
+                                "Javascript",
+                                "CSS3",
+                                "CoffeeScript",
+                                "AngularJS",
+                                "ReactJS",
+                                "VueJS"
+                            ]
+                        },
+
+                        // readonly: false,
+                        //
+                        // disabled: false,
                         hint: "An explanation of the nature, scope, or meaning of the new term.",
                         validator: VueFormGenerator.validators.array
                     }, {
@@ -228,33 +225,12 @@
 
                 formOptions: {
                     validateAfterLoad: true,
-                    validateAfterChanged: true
+                    validateAfterChanged: true,
+                    validateAsync: true
                 }
             };
         },
         methods: {
-            prettyJSON: function(json) {
-                if (json) {
-                    json = JSON.stringify(json, undefined, 4);
-                    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
-                    // eslint-disable-next-line no-useless-escape
-                    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-                        var cls = 'number';
-                        if (/^"/.test(match)) {
-                            if (/:$/.test(match)) {
-                                cls = 'key';
-                            } else {
-                                cls = 'string';
-                            }
-                        } else if (/true|false/.test(match)) {
-                            cls = 'boolean';
-                        } else if (/null/.test(match)) {
-                            cls = 'null';
-                        }
-                        return '<span class="' + cls + '">' + match + '</span>';
-                    });
-                }
-            },
             onSave() {
                 this.$emit('saveResponse', this.selectedTerm, this.model);
             }
@@ -263,6 +239,8 @@
             if (this.init) {
                 this.model = this.init;
             }
+            // eslint-disable-next-line
+            console.log(243, this.searchResults);
         }
     };
 </script>

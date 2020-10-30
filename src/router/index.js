@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import TermDetail from "../components/TermDetail";
 import Annotate from "../components/Annotate";
 import Landing from "../components/Landing";
+import About from "../components/About";
 
 Vue.use(Router);
 
@@ -32,6 +33,11 @@ export default new Router({
             path: '/annotate',
             name: 'Annotate',
             component: Annotate,
+        },
+        {
+            path: '/about',
+            name: 'About',
+            component: About,
         }
     ],
 });

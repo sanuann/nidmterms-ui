@@ -1,65 +1,188 @@
 <template>
-    <div id="landing">
-        <div class="wrapper">
-            <div>
-                <b-card
-                        overlay
-                        img-src="../assets/images/nidm-terms-background.png"
-                        img-alt="Card Image"
-                        text-variant="white"
-                        title="TERMINOLOGIES FOR THE NEUROIMAGING COMMUNITY"
-                        class="text-center text-md-left "
-                >
-                </b-card>
-            </div>
-            <div class="container text-center">
-                <b-card-group deck>
-                    <b-card title="Explore terms">
-<!--                        <a href="annotate" class="card-link">Explore the terminology</a>-->
-                        <b-card-text>
-                            <router-link class="card-link" :to="{ path: 'explore' }">Explore the terminology</router-link>
-                        </b-card-text>
-                    </b-card>
-
-                    <b-card title="Add Term">
-                        <b-card-text>
-                            <router-link class="card-link" :to="{ path: 'create' }">Suggest a term for the NIDM Terminologies</router-link>
-                        </b-card-text>
-                    </b-card>
-
-                    <b-card title="Annotate">
-                        <b-card-text>
-                            <router-link class="card-link" :to="{ path: 'annotate' }">Annotate terms in a CSV/TSV file</router-link>
-                        </b-card-text>
-                    </b-card>
-                </b-card-group>
-            </div>
-
-
-<!--            <div class="v-parallax" dark="" style="height: 500px;">-->
-<!--                <div class="">-->
-<!--                    <img src="../../assests/images/nidm-terms-background.png" alt="" class="v-parallax__image" style="display: block; opacity: 1; transform: translate(-50%, 367px);">-->
+    <div>
+<!--        <nav class="navbar navbar-default navbar-fixed-top">-->
+<!--            <div class="container">-->
+<!--                <div class="navbar-header">-->
+<!--                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+<!--                        <span class="sr-only">Toggle navigation</span>-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                        <span class="icon-bar"></span>-->
+<!--                    </button>-->
+<!--                    <a class="navbar-brand" href="#">Transparent to Solid Nav</a>-->
 <!--                </div>-->
-<!--                &lt;!&ndash;                <div class="v-parallax__content">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <div class="container fill-height">&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <div class=" row ">&ndash;&gt;-->
-<!--                &lt;!&ndash;                            <div class="">&ndash;&gt;-->
-<!--                &lt;!&ndash;                                <h1 class="text-center text-md-left">TERMINOLOGIES FOR THE NEUROIMAGING COMMUNITY</h1>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <div id="navbar" class="collapse navbar-collapse">-->
+<!--                    <ul class="nav navbar-nav navbar-right">-->
+<!--                        <li><a href="#">About</a></li>-->
+<!--                        <li><a href="#">Link</a></li>-->
+<!--                        <li><a href="#">Another Link</a></li>-->
+<!--                    </ul>-->
+<!--                </div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
 <!--            </div>-->
+<!--        </nav>-->
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Transparent to Solid Nav</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                    ANN
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Another Link</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="image">
+            <h1 class="heading">Main Heading</h1>
+            <p><button class="btn btn-large">Big Button</button></p>
         </div>
+        <div class="about">
+            <h2>Main Description</h2>
+            <p>Roll on the floor purring your whiskers off intrigued by the shower burrow under covers, and play time, rub face on everything, intently sniff hand, or pelt around the house and up and down stairs chasing phantoms. Attack feet. Damn that dog shake treat bag under the bed drink water out of the faucet for lick butt love to play with owner's hair tie. Swat at dog give attitude.</p>
+        </div>
+
     </div>
 </template>
 
 <style scoped>
-    .card-deck-card_title {
-        font-size: 10rem;
+    div::after, div::before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
     }
+    .image {
+        background-color: #490D40;
+        background: url('https://sonorangirl.github.io/Earth-Quotes/img/google-earth-view-South-Iceland3.jpg') no-repeat center center;
+        background-size: cover;
+        height: 570px;
+        margin-top: -80px;
+    }
+    .image .heading {
+        color: white;
+        text-align: center;
+        padding-top: 200px;
+    }
+    .image p {
+        text-align: center;
+        padding: 20px 60px;
+    }
+    .image p .btn {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        padding: 10px;
+        font-size: 1.2em;
+    }
+    .image p .btn:hover {
+        color: #C57ED3;
+        border-color: #C57ED3;
+    }
+
+    .navbar {
+        height: 80px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        z-index: 100;
+        /*-webkit-transition: background-color 1s ease 0s;*/
+        transition: background-color 1s ease 0s;
+    }
+
+    .navbar-default .navbar-brand {
+        margin-top: 10px;
+        color: white;
+    }
+    .navbar-default .navbar-brand:hover {
+        color: #C57ED3;
+        border: 1px solid #C57ED3;
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: white;
+        margin: 10px 5px 5px 5px;
+    }
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:active, .navbar-default .navbar-nav > li > a:focus {
+        color: #C57ED3;
+        border: 1px solid #C57ED3;
+    }
+    .navbar-default .navbar-nav > li > a:visited {
+        color: #C57ED3;
+        text-decoration: none;
+    }
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        background-color: transparent;
+        color: #C57ED3;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #C57ED3;
+    }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #490D40;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        color: #C57ED3;
+        background-color: #C57ED3;
+    }
+    .navbar-default .navbar-collapse.collapse.in ul {
+        background-color: #490D40;
+    }
+
+    /* Solid class attached on scroll past first section */
+    .navbar.solid {
+        background-color: #490D40;
+        -webkit-transition: background-color 1s ease 0s;
+        transition: background-color 1s ease 0s;
+        box-shadow: 0 0 4px grey;
+    }
+    .navbar.solid .navbar-brand {
+        color: #C57ED3;
+        -webkit-transition: color 1s ease 0s;
+        transition: color 1s ease 0s;
+    }
+    .navbar.solid .navbar-nav > li > a {
+        color: #C57ED3;
+        -webkit-transition: color 1s ease 0s;
+        transition: color 1s ease 0s;
+    }
+
+    .about {
+        background-color: #C57ED3;
+        color: #490D40;
+        height: 600px;
+        text-align: center;
+        margin-top: -20px;
+    }
+    .about h2 {
+        padding-top: 220px;
+    }
+    .about p {
+        padding: 20px 80px;
+    }
+
+
 </style>
 
 <script>
-
+    // export default {
+    //     mounted() {
+    //         // Transition effect for navbar
+    //         $(window).scroll(function() {
+    //             // checks if window is scrolled more than 500px, adds/removes solid class
+    //             if(document.body.scrollTop() > 500) {
+    //                 $('.navbar').addClass('solid');
+    //             } else {
+    //                 $('.navbar').removeClass('solid');
+    //             }
+    //         });
+    //     }
+    // }
 </script>
