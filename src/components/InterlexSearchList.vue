@@ -1,5 +1,5 @@
 <template>
-    <ul class="list-group scroll">
+    <ul v-if="terms.length" class="list-group scroll">
         <!-- key property is used whenever list is updated -->
         <InterlexTerm
             v-for="term in terms"
@@ -8,6 +8,9 @@
         >
         </InterlexTerm>
     </ul>
+    <div v-else>
+        <p class="no-match">No matching terms found!</p>
+    </div>
 </template>
 
 <script>
@@ -49,5 +52,10 @@
         /*padding:4px;*/
 
         overflow-y: auto;
+    }
+
+    .no-match {
+        margin: 20px;
+        text-align: center;
     }
 </style>

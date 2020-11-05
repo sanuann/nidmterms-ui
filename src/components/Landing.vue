@@ -1,5 +1,25 @@
 <template>
     <div>
+<!--        <b-navbar toggleable="lg" type="dark" variant="dark">-->
+<!--            <b-navbar-brand href="#">-->
+<!--                <img class="navbar-logo" src="../assets/images/logo.png" alt="Nidm-terms Logo">-->
+<!--            </b-navbar-brand>-->
+<!--            <span class="community-name">NIDM Terminology</span>-->
+
+<!--            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>-->
+
+<!--            <b-collapse id="nav-collapse" is-nav>-->
+
+<!--                &lt;!&ndash; Right aligned nav items &ndash;&gt;-->
+<!--                <b-navbar-nav class="ml-auto">-->
+<!--                    <b-nav-form>-->
+<!--                        <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>-->
+<!--                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>-->
+<!--                    </b-nav-form>-->
+<!--                </b-navbar-nav>-->
+<!--            </b-collapse>-->
+<!--        </b-navbar>-->
+
 <!--        <nav class="navbar navbar-default navbar-fixed-top">-->
 <!--            <div class="container">-->
 <!--                <div class="navbar-header">-->
@@ -11,7 +31,8 @@
 <!--                    </button>-->
 <!--                    <a class="navbar-brand" href="#">Transparent to Solid Nav</a>-->
 <!--                </div>-->
-<!--                <div id="navbar" class="collapse navbar-collapse">-->
+<!--                <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">-->
+<!--                    ANN-->
 <!--                    <ul class="nav navbar-nav navbar-right">-->
 <!--                        <li><a href="#">About</a></li>-->
 <!--                        <li><a href="#">Link</a></li>-->
@@ -20,28 +41,6 @@
 <!--                </div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
 <!--            </div>-->
 <!--        </nav>-->
-
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Transparent to Solid Nav</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                    ANN
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Another Link</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
         <div class="image">
             <h1 class="heading">Main Heading</h1>
             <p><button class="btn btn-large">Big Button</button></p>
@@ -62,10 +61,10 @@
     }
     .image {
         background-color: #490D40;
-        background: url('https://sonorangirl.github.io/Earth-Quotes/img/google-earth-view-South-Iceland3.jpg') no-repeat center center;
+        background: url('../assets/images/nidm-terms-background.png') no-repeat center center;
         background-size: cover;
         height: 570px;
-        margin-top: -80px;
+        /*margin-top: -80px;*/
     }
     .image .heading {
         color: white;

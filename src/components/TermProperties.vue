@@ -13,7 +13,7 @@
     .scroll {
         /*margin:4px;*/
         /*padding:4px;*/
-        height: 899px;
+        height: 880px;
         overflow-y: auto;
     }
 
@@ -59,11 +59,23 @@
         opacity: 0;
     }
 
+    /*.field-checklist-wrapper {*/
+    /*    width: 100%;*/
+    /*}*/
+    .group-one-class {
+        background-color: red;
+        width: 100%;
+    }
+    .checklist-class {
+        width: 100%;
+    }
+
 </style>
 
 <script>
     import VueFormGenerator from 'vue-form-generator';
     import 'vue-form-generator/dist/vfg.css';
+    import _ from 'lodash';
     export default {
         name: "TermProperties",
         props: {
@@ -79,7 +91,7 @@
             return {
                 model: {
                     label: '',
-                    sourceVariable: '',
+                    sourceVariable: this.selectedTerm,
                     description: '',
                     url: '',
                     valueType: '',
@@ -97,132 +109,119 @@
                     provenance: ''
                 },
                 schema: {
-                    fields: [{
-                        type: "input",
-                        inputType: "text",
-                        label: "Label",
-                        model: "label",
-                        hint: "Label for the term",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: "text",
-                        label: "Source variable",
-                        model: "sourceVariable",
-                        readonly: false,
-                        hint: "Variable name from dataset",
-                        featured: true,
-                        required: false,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: "text",
-                        label: "Description",
-                        model: "description",
-                        featured: true,
-                        required: false,
-                        hint: "An explanation of the nature, scope, or meaning of the new term.",
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: "text",
-                        label: "valueType",
-                        model: "valueType",
-                        hint: "A value representation such as integer, float, string, date/time",
-                        featured: true,
-                        readonly: false,
-                        required: false,
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: 'text',
-                        label: "datumType",
-                        model: "datumType",
-                        hint: "What type of datum it is (e.g. range,count,scalar etc.): see IAO definitions",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: 'text',
-                        label: "Unit",
-                        model: "hasUnit",
-                        hint: "Unit of measurement following BIDS specification",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.string
-                    }, {
-                        type: "input",
-                        inputType: 'number',
-                        label: "Max Value",
-                        model: "maximumValue",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.number
-                    }, {
-                        type: "input",
-                        inputType: "number",
-                        label: "Min Value",
-                        model: "minimumValue",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        validator: VueFormGenerator.validators.number
-                    }, {
-                        type: "checklist",
-                        label: "isAbout",
-                        model: "isAbout",
-                        required: false,
-                        multiSelect: true,
-                        featured: true,
-                        default: "No concept needed for this variable",
-                        values: function() {
-                            // eslint-disable-next-line
-                            console.log(187, this.searchResults);
-                            return [
-                                "HTML5",
-                                "Javascript",
-                                "CSS3",
-                                "CoffeeScript",
-                                "AngularJS",
-                                "ReactJS",
-                                "VueJS"
-                            ]
-                        },
-
-                        // readonly: false,
-                        //
-                        // disabled: false,
-                        hint: "An explanation of the nature, scope, or meaning of the new term.",
-                        validator: VueFormGenerator.validators.array
-                    }, {
-                        type: "input",
-                        inputType: "text",
-                        label: "allowableValues",
-                        model: "allowableValues",
-                        readonly: false,
-                        featured: true,
-                        disabled: false
-                    }, {
-                        type: "input",
-                        inputType: "text",
-                        label: "isPartOf",
-                        model: "isPartOF",
-                        readonly: false,
-                        featured: true,
-                        disabled: false,
-                        required: false,
-                        validator: VueFormGenerator.validators.array
+                    groups: [{
+                        styleClasses: "group-one-class",
+                        fields: [{
+                            type: "input",
+                            inputType: "text",
+                            label: "Label",
+                            model: "label",
+                            hint: "Label for the term",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            validator: VueFormGenerator.validators.string
+                        }, {
+                            type: "input",
+                            inputType: "text",
+                            label: "Source variable",
+                            model: "sourceVariable",
+                            readonly: true,
+                            hint: "Variable name from dataset",
+                            featured: true,
+                            required: false,
+                            disabled: true
+                        }, {
+                            type: "input",
+                            inputType: "text",
+                            label: "Description",
+                            model: "description",
+                            featured: true,
+                            required: false,
+                            hint: "An explanation of the nature, scope, or meaning of the new term.",
+                            validator: VueFormGenerator.validators.string
+                        }, {
+                            type: "input",
+                            inputType: "text",
+                            label: "valueType",
+                            model: "valueType",
+                            hint: "A value representation such as integer, float, string, date/time",
+                            featured: true,
+                            readonly: false,
+                            required: false,
+                            validator: VueFormGenerator.validators.string
+                        }, {
+                            type: "input",
+                            inputType: 'text',
+                            label: "datumType",
+                            model: "datumType",
+                            hint: "What type of datum it is (e.g. range,count,scalar etc.): see IAO definitions",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            validator: VueFormGenerator.validators.string
+                        }, {
+                            type: "input",
+                            inputType: 'text',
+                            label: "Unit",
+                            model: "hasUnit",
+                            hint: "Unit of measurement following BIDS specification",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            validator: VueFormGenerator.validators.string
+                        }, {
+                            type: "input",
+                            inputType: 'number',
+                            label: "Max Value",
+                            model: "maximumValue",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            validator: VueFormGenerator.validators.number
+                        }, {
+                            type: "input",
+                            inputType: "number",
+                            label: "Min Value",
+                            model: "minimumValue",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            validator: VueFormGenerator.validators.number
+                        }, {
+                            type: "checklist",
+                            label: "isAbout",
+                            model: "isAbout",
+                            required: false,
+                            multiSelect: true,
+                            featured: true,
+                            styleClasses: 'checklist-class',
+                            values: [],
+                            hint: "An explanation of the nature, scope, or meaning of the new term.",
+                            help: "Check right column for definition of the related concept terms",
+                            validator: VueFormGenerator.validators.array,
+                        }, {
+                            type: "input",
+                            inputType: "text",
+                            label: "allowableValues",
+                            model: "allowableValues",
+                            readonly: false,
+                            featured: true,
+                            disabled: false
+                        }, {
+                            type: "input",
+                            inputType: "text",
+                            label: "isPartOf",
+                            model: "isPartOF",
+                            readonly: false,
+                            featured: true,
+                            disabled: false,
+                            required: false,
+                            validator: VueFormGenerator.validators.array
+                        }]
                     }]
                 },
-
+                interlexTerms: [],
                 formOptions: {
                     validateAfterLoad: true,
                     validateAfterChanged: true,
@@ -230,17 +229,28 @@
                 }
             };
         },
+        watch: {
+            searchResults: {
+                deep: true,
+                immediate: true,
+                handler(newVal) {
+                    const searchLabels = _.map(newVal, s => {
+                        return s['_source']['label'];
+                    });
+                searchLabels.unshift('No concept needed');
+                this.schema.groups[0].fields[8].values = searchLabels;
+                }
+            },
+        },
         methods: {
             onSave() {
                 this.$emit('saveResponse', this.selectedTerm, this.model);
-            }
+            },
         },
         mounted() {
             if (this.init) {
                 this.model = this.init;
             }
-            // eslint-disable-next-line
-            console.log(243, this.searchResults);
-        }
+        },
     };
 </script>

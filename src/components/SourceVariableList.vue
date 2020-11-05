@@ -1,21 +1,3 @@
-<!--<template>-->
-<!--    <div>-->
-<!--        <ul class="list-group">-->
-<!--            &lt;!&ndash; key property is used whenever list is updated &ndash;&gt;-->
-<!--            <TermListItem-->
-<!--                    v-for="term in terms1"-->
-<!--                    :term="term"-->
-<!--                    :key="term"-->
-<!--                    @termSelect="onTermSelect"-->
-<!--            >-->
-<!--            </TermListItem>-->
-<!--        </ul>-->
-<!--        <TermDetail :results="results">-->
-
-<!--        </TermDetail>-->
-<!--    </div>-->
-<!--</template>-->
-
 <template>
     <div>
         <ul class="list-group">
@@ -54,16 +36,11 @@
         data() {
           return {
               results: [],
-              itemCompleted: false
+              itemCompleted: false,
           }
         },
         components: {
             TermListItem
-        },
-        watch: {
-            completed: {
-                deep: true
-            },
         },
         methods: {
             onTermSelect(term) {
@@ -105,11 +82,17 @@
                     // console.log(56, term, response.data.hits.hits);
                     this.$emit('termSearchResult', response.data.hits.hits);
                 });
-            }
-        }
+            },
+        },
+        // mounted() {
+        //     // eslint-disable-next-line
+        //     console.log(111, 'in source var list: ', this.completed);
+        // }
     };
 </script>
 
 <style scoped>
-
+    .active {
+        background-color: red;
+    }
 </style>

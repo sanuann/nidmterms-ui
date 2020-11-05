@@ -1,56 +1,48 @@
 <template>
-    <div>
+    <div id="annotate">
         <div>
-            <p class="text-left"><b> Upload a CSV or TSV file to annotate:  </b></p>
+            <p class="upload"><b> Upload a CSV or TSV file to annotate:  </b></p>
             <input type="file" @change="onFileSelected">
 <!--            <button @click="onFileSelected">Upload</button>-->
 
         </div>
-        <div class="download-btn" v-if="isAnnotated">
-            <b-button variant="primary" @click="downloadJSONLD">Download JSON-LD</b-button>
-        </div>
-<!--        <b-container fluid>-->
-<!--            <b-checkbox-->
-<!--                    :disabled="visibleFields.length == 1 && field.visible"-->
-<!--                    v-for="field in fields"-->
-<!--                    :key="field.key"-->
-<!--                    v-model="field.visible"-->
-<!--                    inline-->
-<!--            >-->
-<!--                {{ field.label }}-->
-<!--            </b-checkbox>-->
-<!--            <br /><br />-->
-<!--            <b-table :items="items" :fields="visibleFields" bordered>-->
-<!--            </b-table>-->
-<!--        </b-container>-->
-
-
         <b-container fluid class="col-container" v-if="sourceList.length">
             <div id="sidebar-left">
-                <p><b>Terms</b></p>
-                <SourceVariableList :terms1="sourceList" :completed="completed"
-                                    v-on:termSearchResult="searchList"
-                                    v-on:termSelect="showTermProperties"
-                ></SourceVariableList>
+                <div class="col-header">
+                    <p><b>Terms</b></p>
+                </div>
+                <div>
+                    <SourceVariableList :terms1="sourceList" :completed="completed"
+                                        v-on:termSearchResult="searchList"
+                                        v-on:termSelect="showTermProperties"
+                    ></SourceVariableList>
+                </div>
             </div>
             <div id="main-content" v-if="selectedTerm">
-                <p><b>Term Properties</b></p>
+                <div class="col-header">
+                    <p><b>Term Properties</b></p>
+                </div>
                 <transition name="fade" mode="out-in">
                     <TermProperties :key="selectedTerm" :init="responses[selectedTerm]"
                                     v-if="showForm" :selectedTerm="selectedTerm"
-                                    :searchResults="getSearchResults"
+                                    :searchResults="interlexTerms"
                                     v-on:saveResponse="setResponse"></TermProperties>
                 </transition>
             </div>
-            <div id="sidebar-right" v-if="selectedTerm"><p><b>Interlex Search</b></p>
+            <div id="sidebar-right" v-if="selectedTerm">
+                <div class="col-header">
+                    <p><b>Interlex Search</b></p>
+                </div>
                 <InterlexSearchList :terms="interlexTerms"></InterlexSearchList>
             </div>
         </b-container>
+        <div class="download-btn" v-if="isAnnotated">
+            <b-button variant="primary" @click="downloadJSONLD">Download JSON</b-button>
+        </div>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
     import Papa from 'papaparse';
     import JSZip from 'jszip';
     import _ from 'lodash';
@@ -59,7 +51,6 @@
     import SourceVariableList from './SourceVariableList';
     import InterlexSearchList from "./InterlexSearchList";
     import TermProperties from "./TermProperties";
-    const API_KEY = 'CfufpoSNVXujv7h14HFHI4dL9p36mxCJ';
     export default {
         name: 'Annotate',
         components: {
@@ -88,27 +79,28 @@
                 handler(newVal) {
                   this.isAnnotated = !_.isEmpty(newVal);
                   // eslint-disable-next-line
-                  console.log(82, 'in resp watcher ', newVal, _.isEmpty(newVal), this.isAnnotated);
+                  // console.log(82, 'in resp watcher ', newVal, _.isEmpty(newVal), this.isAnnotated);
 
                 }
             },
             interlexTerms() {
                 this.$forceUpdate();
-                // deep: true,
-                // handler(newVal, oldVal) {
-                //     // eslint-disable-next-line
-                //     console.log(97, oldVal, newVal);
-                //     oldVal = newVal;
-                // }
-            }
+            },
+            completed: {
+                deep: true,
+                handler(newVal) {
+                    // eslint-disable-next-line
+                    console.log(92, 'in completed watcher ', this.selectedTerm, newVal);
+                }
+            },
         },
         methods: {
             downloadJSONLD() {
                 const annotatedFile = this.createAnnotatedFile(this.responses);
                 const jszip = new JSZip();
                 // eslint-disable-next-line
-                console.log(117, this.responses);
-                jszip.folder('responses').file(`${this.fileInput.name.split('.')[0]}.jsonld`, JSON.stringify(annotatedFile, null, 4));
+                // console.log(117, this.responses);
+                jszip.folder('responses').file(`${this.fileInput.name.split('.')[0]}.json`, JSON.stringify(annotatedFile, null, 4));
                 jszip.generateAsync({ type: 'blob' })
                     .then((myzipfile) => {
                         const fileName = `study-data`;
@@ -117,7 +109,7 @@
             },
             createAnnotatedFile(responses) {
                 // eslint-disable-next-line
-                console.log(117, responses);
+                // console.log(117, responses);
                 // const r = {
                 //     "race": {
                 //         "label": "race1",
@@ -143,7 +135,7 @@
 
                 for (const [key, value] of Object.entries(responses)) {
                     // eslint-disable-next-line
-                    console.log(`${key}: ${value}`);
+                    // console.log(`${key}: ${value}`);
                     const annotateKey = `DD(source=${this.fileInput.name}, variable=${key})`;
                     const annotatedValue = {
                         "label": key,
@@ -160,7 +152,7 @@
             onFileSelected(event) {
                 this.fileInput = event.target.files[0];
                 // eslint-disable-next-line
-                console.log(116, this.fileInput.name.split('.')[0]);
+                // console.log(116, this.fileInput.name.split('.')[0]);
                 Papa.parse(this.fileInput, {
                     complete: results => {
                         this.sourceList = results.data[0];
@@ -170,53 +162,22 @@
             },
             searchList(termList) {
                 this.interlexTerms = termList;
-                // eslint-disable-next-line
-                console.log(127, this.interlexTerms);
             },
             showTermProperties(termSelected) {
                 this.selectedTerm = termSelected;
                 this.showForm = true;
             },
-            onTermChange(query_string) {
-                // eslint-disable-next-line
-                // console.log(18, query_string);
-                axios.get(`https://scicrunch.org/api/1/term/elastic/search?term=${query_string}`, {
-                    params: {
-                        key: API_KEY,
-                    }
-                }).then(response => {
-                    // eslint-disable-next-line
-                    // console.log(56, response.data.data.hits.hits);
-                    this.terms = response.data.data.hits.hits;
-                });
-            },
             setResponse(selectedTerm, annotations) {
                 // eslint-disable-next-line
-                console.log(104, selectedTerm, annotations, Object.keys(annotations));
+                // console.log(104, selectedTerm, annotations, Object.keys(annotations));
                 this.$set(this.responses, selectedTerm, annotations);
                 // this.responses[selectedTerm] = annotations;
                 // todo: check if all properties are set and then set completed to true or false
                 if (annotations) { //change the condition
-                    this.completed[selectedTerm] = false;
+                    this.$set(this.completed, selectedTerm, true);
                     // eslint-disable-next-line
-                    console.log(128, this.completed, Object.values(annotations));
-                } else this.completed[selectedTerm] = false;
-            }
-        },
-        computed: {
-            // getResponses() {
-            //     // eslint-disable-next-line
-            //     console.log(142);
-            //     return this.responses.splice(this.responses.length); // returns true if response present
-            // },
-            visibleFields() {
-                return this.fields.filter(field => field.visible)
-            },
-            getSearchResults() {
-                // eslint-disable-next-line
-                console.log(168, this.interlexTerms);
-                return this.interlexTerms;
-
+                    // console.log(128, 'in setResponse set cond', this.completed, Object.values(annotations));
+                } else this.$set(this.completed, selectedTerm, false);
             }
         },
 
@@ -224,9 +185,28 @@
 </script>
 
 <style scoped>
+    #annotate {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        /*background-color: rgba(199, 176, 211, 0.71);*/
+    }
     .col-container {
         display: flex;
         width: 100%;
+        padding-bottom: 20px;
+    }
+
+    .col-header {
+        /*background-color: #009DAA;*/
+        /*height: 60px;*/
+        background-color: #e3e9ee;
+        /*border-style: solid;*/
+        /*border-color: red;*/
+        border-bottom: 1px solid grey;
+    }
+    .col-header > p {
+        text-align: center;
+        color: #444;
+        padding-top: 15px;
     }
 
     .bv-example-row {
@@ -234,55 +214,53 @@
     }
     /*Demo Styles*/
 
-    p {
+    .upload {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        text-align: center;
+        text-align: left;
         color: #444;
-        margin: 20px;
+        padding-top: 20px;
+        padding-left: 20px;
         /*padding: 150px 0;!*Add some height to the columns*!*/
     }
 
+    input {
+        padding-left: 15px;
+        padding-bottom: 15px;
+        border-radius: 8px;
+        width: calc(33.333333% - 20px);
+        box-sizing: border-box;
+    }
+
+    input:hover {
+        cursor: pointer;
+    }
+
     #main-content {
-        background-color: #eef3f7;
+        /*background-color: #eef3f7;*/
         width: 50%;
         float: left;
+        border-top: 1px solid grey;
+        border-bottom: 1px solid grey;
     }
 
     #sidebar-left {
-        background-color: #e3e9ee;
+        /*background-color: #e3e9ee;*/
         width: 25%;
         float: left;
+        border: 1px solid grey;
     }
 
     #sidebar-right {
-        background-color: #dbe1e6;
+        /*background-color: #dbe1e6;*/
         width: 25%;
         float: left;
+        border: 1px solid grey;
     }
 
     /*Base Mobile Layout*/
     .wrap {
         width: 90%;
         margin: 0 auto;
-    }
-
-    /*#main-content, #sidebar-left, #sidebar-right {*/
-    /*    width: 50%;*/
-    /*    float: left;*/
-    /*}*/
-
-    /* Create three unequal columns that floats next to each other */
-    .column {
-        float: left;
-        padding: 10px;
-    }
-
-    .left, .right {
-        width: 25%;
-    }
-
-    .middle {
-        width: 50%;
     }
 
     /*3 Column Layout*/
@@ -381,15 +359,9 @@
         float: right!important;
     }
 
-    input {
-        padding: 15px;
-        border-radius: 8px;
-        width: calc(33.333333% - 20px);
-        box-sizing: border-box;
-    }
-
     .download-btn {
-        padding-bottom: 10px;
+        padding-top: 10px;
+        padding-bottom: 20px;
         padding-left: 15px;
     }
 

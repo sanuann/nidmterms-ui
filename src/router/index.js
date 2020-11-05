@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import TermDetail from "../components/TermDetail";
 import Annotate from "../components/Annotate";
-import Landing from "../components/Landing";
+import Landing from "../components/Landing-existing";
 import About from "../components/About";
 
 Vue.use(Router);
