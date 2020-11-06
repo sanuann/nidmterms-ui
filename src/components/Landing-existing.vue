@@ -15,7 +15,8 @@
                 </b-button>
 <!--                <b-button class="learn-btn"> Learn More</b-button>-->
                 <section id="section01" class="demo">
-                    <a href="#section02"><span></span></a>
+                    <button v-scroll-to="'#section02'"></button>
+<!--                    <span><a v-scroll-to="'#section02'"></a></span>-->
                 </section>
             </b-card>
         <div id="section02" class="about text-center">
@@ -108,10 +109,11 @@
     /*    opacity: .5;*/
     /*}*/
 
-    #section01 a {
-        padding-top: 60px;
+    #section01 button {
+        margin: 60px;
+        background-color: transparent;
     }
-    #section01 a span {
+    #section01 button {
         position: absolute;
         top: 60%;
         left: 50%;
@@ -123,7 +125,7 @@
         box-sizing: border-box;
     }
 
-    #section01 a span::after {
+    #section01 button::after {
         position: absolute;
         top: 50%;
         left: 50%;
