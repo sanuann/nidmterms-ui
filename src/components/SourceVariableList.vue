@@ -2,28 +2,29 @@
     <div>
         <ul class="list-group">
             <!-- key property is used whenever list is updated -->
-            <TermListItem
-                    v-for="term in terms1"
-                    :term="term"
-                    :key="term"
-                    :completed="completed"
-                    @termSelect="onTermSelect"
-            >
-            </TermListItem>
+<!--            <TermListItem-->
+<!--                    v-for="term in terms1"-->
+<!--                    :term="term"-->
+<!--                    :key="term"-->
+<!--                    :completed="completed"-->
+<!--                    @termSelect="onTermSelect"-->
+<!--            >-->
+<!--            </TermListItem>-->
 
-<!--            <li class="list-group-item" v-for="term in terms1" :key="term">-->
-<!--                <a @click="onTermSelect">-->
-<!--                    <span class="align-middle">-->
-<!--                     {{term}}-->
-<!--                   </span>-->
-<!--                </a>-->
-<!--            </li>-->
+            <li class="list-group-item" v-for="(term , idx) in terms1" :key="idx+term"
+                :class="{'current-item': idx === activeIndex}" @click="onTermSelect(term, idx)">
+
+                    <span>
+                     {{term}}
+                   </span>
+
+                <div v-if="completed[term]" class="checkmark"></div>
+            </li>
         </ul>
     </div>
 </template>
 
 <script>
-    import TermListItem from './TermListItem';
     import axios from "axios";
     const API_KEY = 'CfufpoSNVXujv7h14HFHI4dL9p36mxCJ';
 
@@ -37,13 +38,14 @@
           return {
               results: [],
               itemCompleted: false,
+              activeIndex: null
           }
         },
-        components: {
-            TermListItem
-        },
         methods: {
-            onTermSelect(term) {
+            onTermSelect(term, index) {
+                // eslint-disable-next-line
+                console.log(47, term, index);
+                this.activeIndex = index;
                 this.$emit('termSelect', term);
 
                 // axios.get(`https://scicrunch.org/api/1/term/elastic/search?term=${term}`, {
@@ -84,15 +86,27 @@
                 });
             },
         },
-        // mounted() {
-        //     // eslint-disable-next-line
-        //     console.log(111, 'in source var list: ', this.completed);
-        // }
     };
 </script>
 
 <style scoped>
-    .active {
-        background-color: red;
+    .checkmark {
+        display: inline-block;
+        transform: rotate(45deg);
+        height: 25px;
+        width: 12px;
+        margin: auto;
+        margin-right: inherit;
+        border-bottom: 4px solid #78b13f;
+        border-right: 4px solid #78b13f;
+    }
+
+    li {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .current-item {
+        background-color: lightgrey;
     }
 </style>
