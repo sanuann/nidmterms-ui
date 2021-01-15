@@ -142,7 +142,7 @@
                         "description": value.description,
                         "sameAs": "https://ndar.nih.gov/api/datadictionary/v2/dataelement/src_subject_id",
                         "valueType": value.valueType,
-                        "source_variable": value.sourceVariable,
+                        "sourceVariable": value.sourceVariable,
                         "isAbout": value.isAbout
                     };
                     annotatedObject[annotateKey] = annotatedValue;
@@ -198,7 +198,7 @@
     .col-header {
         /*background-color: #009DAA;*/
         /*height: 60px;*/
-        background-color: #e3e9ee;
+        background-color: lightsteelblue;
         /*border-style: solid;*/
         /*border-color: red;*/
         border-bottom: 1px solid grey;
